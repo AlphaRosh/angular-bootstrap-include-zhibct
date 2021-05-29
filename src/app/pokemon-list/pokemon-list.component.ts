@@ -12,6 +12,7 @@ export class PokemonListComponent implements OnInit {
   limit: number = 9;
   pageNumber: number = 1;
   totalPokemons: number;
+  searchPokemon: string;
 
   constructor(private pokedexService: PokedexService) {}
 
@@ -19,28 +20,29 @@ export class PokemonListComponent implements OnInit {
     this.getPokemonList();
   }
 
-//Page chnage logic
- onPageChanged(event){
-   this.pageNumber=event;
-   this.pokemons=[];
-   this.getPokemonList();
- }
-  
+  //Page chnage logic
+  onPageChanged(event) {
+    this.pageNumber = event;
+    this.pokemons = [];
+    this.getPokemonList();
+  }
+
   getType(type: string) {
     return type;
-    
   }
   getPokemonList(): void {
-    this.pokedexService.getPokemon(this.limit, (this.pageNumber>1?this.pageNumber*9:0)).subscribe((response: any) => {
-      this.totalPokemons = response.count;
+    this.pokedexService
+      .getPokemon(this.limit, this.pageNumber > 1 ? this.pageNumber * 9 : 0)
+      .subscribe((response: any) => {
+        this.totalPokemons = response.count;
 
-      response.results.forEach(result => {
-        this.pokedexService
-          .getPokemonDetails(result.name)
-          .subscribe((pokeResponse: any) => {
-            this.pokemons.push(pokeResponse);
-          });
+        response.results.forEach(result => {
+          this.pokedexService
+            .getPokemonDetails(result.name)
+            .subscribe((pokeResponse: any) => {
+              this.pokemons.push(pokeResponse);
+            });
+        });
       });
-    });
   }
 }
