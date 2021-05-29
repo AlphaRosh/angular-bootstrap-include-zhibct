@@ -1,0 +1,7 @@
+p {
+  font-family: Lato;
+}
+
+.jumbotron>h1{
+  cursor: pointer;
+}

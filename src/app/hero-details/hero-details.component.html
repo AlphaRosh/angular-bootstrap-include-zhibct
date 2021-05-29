@@ -1,0 +1,14 @@
+<div class="card">
+  <div class="card-header">{{hero.heroname}} details</div>
+  <div class="card-body">
+
+    <p><strong>Hero Name :</strong> {{hero.heroname}}</p>
+    <p><strong>Real Name :</strong> {{hero.realname}}</p>
+    <p><strong>Abilites :</strong> {{hero.abilities}}</p>
+    <p><strong>Hero League :</strong> {{hero.League}}</p>
+  </div>
+  <div class="card-footer">
+    <p><strong>Universe : </strong> {{hero.Universe}}</p>
+    <a class="btn btn-primary" [routerLink]="['/herolist']" title="Back to hero list">Back</a>
+  </div>
+</div>

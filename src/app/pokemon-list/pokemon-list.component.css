@@ -1,0 +1,13 @@
+/* .card-group{
+
+} */
+
+.card-columns {
+  display: inline-block;
+  @include media-breakpoint-only(lg) {
+    column-count: 4;
+  }
+  @include media-breakpoint-only(xl) {
+    column-count: 5;
+  }
+}

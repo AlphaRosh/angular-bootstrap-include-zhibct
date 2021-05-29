@@ -1,0 +1,13 @@
+.herolist-row {
+  cursor: pointer;
+}
+.search-hero {
+  max-width: 500px;
+  padding-bottom: 50px;
+  margin: auto;
+}
+
+.search-hero input {
+  border-width: medium;
+  box-shadow: 1px 5px rgb(64 60 67 / 16%);
+}

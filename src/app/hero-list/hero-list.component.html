@@ -1,0 +1,30 @@
+<p>
+  The search functionaliy implemented using <a
+    href="https://www.npmjs.com/package/ng2-search-filter">ng2-search-filter</a>
+</p>
+
+<div class="container row">
+  <div class="search-hero wb-2">
+    <input class="form-control" type="text" name="search" [(ngModel)]="searchHero" autocomplete="off" placeholder="Search">
+  </div>
+  <div class="container">
+    <table class="table table-striped" id="heroList">
+      <thead>
+        <tr>
+          <th>Hero Name</th>
+          <th>League</th>
+          <th>Universe</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr class="herolist-row" *ngFor="let hero of heroes | filter:searchHero " [routerLink]="['/heros', hero.id]"
+          title="Click to know the details about">
+          <td>{{hero.heroname}}</td>
+          <td>{{hero.League}}</td>
+          <td>{{hero.Universe}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
