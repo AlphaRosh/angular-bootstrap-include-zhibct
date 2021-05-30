@@ -1,5 +1,4 @@
 <div class="input-group mb-5 shadow">
-
   <input
     type="text"
     class="form-control border border-danger"
@@ -9,7 +8,6 @@
     name="search"
     [(ngModel)]="searchPokemon"
     autocomplete="off"
-    
   />
   <!-- <div class="input-group-append">
     <button class="btn btn-success" type="button">Love it</button>
@@ -24,61 +22,70 @@
     ></pagination-controls>
   </div>
 </div>
-
-<div class="card-columns">
-  <div
-    class="card shadow bg-{{getType(pokemon.types[0].type.name)}}"
-    style="color:white"
-    *ngFor="let pokemon of pokemons|filter:searchPokemon | paginate:{itemsPerPage:limit, currentPage:pageNumber, totalItems:totalPokemons}"
-  >
-    <div class="card-body">
-      <img
-        [src]="pokemon.sprites.front_default"
-        [title]="pokemon.name"
-        class="img-fluid card-img"
-      />
-      <h4 class="card-title">{{pokemon.name}}</h4>
-      <p *ngIf="pokemon.types">
-        <span
-          *ngFor="let type of pokemon.types"
-          class="badge border rounded-pill me-1"
-        >
-          {{type.type.name | titlecase}}
-        </span>
-      </p>
-      <div class="col-sm-5 card-text">
-        <h6 class="text-sm-end mt-1">HP</h6>
-      </div>
-      <div class="progress" style="height: 30px">
-        <div
-          class="progress-bar progress-bar-striped"
-          role="progressbar"
-          style="height: 30px; background-color:orange"
-          [style.width]="pokemon.stats[0].base_stat + '%'"
-          aria-valuemin="0"
-          aria-valuemax="100"
-        >
-          <b>{{pokemon.stats[0].base_stat}}</b>
-        </div>
-      </div>
-      <div class="col-sm-10 card-text">
-        <h6 class="text-sm-end mt-1">Attack Power</h6>
-      </div>
-      <div class="progress" style="height: 30px">
-        <div
-          class="progress-bar progress-bar-striped"
-          role="progressbar"
-          style="height: 30px; background-color:orange"
-          [style.width]="pokemon.stats[1].base_stat + '%'"
-          aria-valuemin="0"
-          aria-valuemax="100"
-        >
-          <b>{{pokemon.stats[1].base_stat}}</b>
+<ng-template [ngIf]="pokemons" [ngIfElse]="noData">
+  <ng-container *ngIf="(pokemons|filter:searchPokemon) as result">
+    <div class="card-columns">
+      <div
+        class="card shadow bg-{{getType(pokemon.types[0].type.name)}}"
+        style="color:white"
+        *ngFor="let pokemon of result | paginate:{itemsPerPage:limit, currentPage:pageNumber, totalItems:totalPokemons}"
+      >
+        <div class="card-body">
+          <img
+            [src]="pokemon.sprites.front_default"
+            [title]="pokemon.name"
+            class="img-fluid card-img"
+          />
+          <h4 class="card-title">{{pokemon.name}}</h4>
+          <p *ngIf="pokemon.types">
+            <span
+              *ngFor="let type of pokemon.types"
+              class="badge border rounded-pill me-1"
+            >
+              {{type.type.name | titlecase}}
+            </span>
+          </p>
+          <div class="col-sm-5 card-text">
+            <h6 class="text-sm-end mt-1">HP</h6>
+          </div>
+          <div class="progress" style="height: 30px">
+            <div
+              class="progress-bar progress-bar-striped"
+              role="progressbar"
+              style="height: 30px; background-color:orange"
+              [style.width]="pokemon.stats[0].base_stat + '%'"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              <b>{{pokemon.stats[0].base_stat}}</b>
+            </div>
+          </div>
+          <div class="col-sm-10 card-text">
+            <h6 class="text-sm-end mt-1">Attack Power</h6>
+          </div>
+          <div class="progress" style="height: 30px">
+            <div
+              class="progress-bar progress-bar-striped"
+              role="progressbar"
+              style="height: 30px; background-color:orange"
+              [style.width]="pokemon.stats[1].base_stat + '%'"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              <b>{{pokemon.stats[1].base_stat}}</b>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+    <p *ngIf="result.length===0">No results found</p>
+  </ng-container>
+</ng-template>
+<ng-template #noData>
+  <div class="row">
+    <p>No Data Found</p>
   </div>
-</div>
+</ng-template>
 <div class="row ">
   <div class="col-sm-10 r">
     <pagination-controls

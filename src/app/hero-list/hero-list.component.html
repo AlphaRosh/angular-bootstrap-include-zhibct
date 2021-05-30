@@ -1,30 +1,57 @@
 <p>
-  The search functionaliy implemented using <a
-    href="https://www.npmjs.com/package/ng2-search-filter">ng2-search-filter</a>
+  The search functionaliy implemented using
+  <a href="https://www.npmjs.com/package/ng2-search-filter"
+    >ng2-search-filter</a
+  >
 </p>
 
 <div class="container row">
-  <div class="search-hero wb-2">
-    <input class="form-control" type="text" name="search" [(ngModel)]="searchHero" autocomplete="off" placeholder="Search">
+  <div class="input-group mb-5 shadow">
+    <input
+      class="form-control border border-d"
+      type="text"
+      name="search"
+      [(ngModel)]="searchHero"
+      autocomplete="off"
+      placeholder="Search"
+    />
   </div>
   <div class="container">
-    <table class="table table-striped" id="heroList">
-      <thead>
-        <tr>
-          <th>Hero Name</th>
-          <th>League</th>
-          <th>Universe</th>
-        </tr>
-      </thead>
-      <tbody>
-
-        <tr class="herolist-row" *ngFor="let hero of heroes | filter:searchHero " [routerLink]="['/heros', hero.id]"
-          title="Click to know the details about">
-          <td>{{hero.heroname}}</td>
-          <td>{{hero.League}}</td>
-          <td>{{hero.Universe}}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div *ngIf="(heroes.length!=0) else noData">
+      <ng-container *ngIf="(heroes | filter:searchHero) as results">
+        <table class="table table-striped" id="heroList">
+          <thead>
+            <tr>
+              <th>Hero Name</th>
+              <th>League</th>
+              <th>Universe</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              class="herolist-row"
+              *ngFor="let hero of results"
+              [routerLink]="['/heros', hero.id]"
+              title="Click to know the details about"
+            >
+              <td>{{hero.heroname}}</td>
+              <td>{{hero.League}}</td>
+              <td>{{hero.Universe}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- Search no result found logic -->
+       
+          <div class="row d-flex justify-content-center" *ngIf="results.length===0">
+            <p><strong>No Results Found</strong></p>
+          </div>
+        
+      </ng-container>
+    </div>
+    <ng-template #noData>
+      <div class="row d-flex justify-content-center">
+        <p>No Data</p>
+      </div>
+    </ng-template>
   </div>
 </div>
